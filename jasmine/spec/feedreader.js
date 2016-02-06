@@ -28,10 +28,11 @@ $(function() {
 
 
         /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a URL defined
-         * and that the URL is not empty.
-         */
+        * in the allFeeds object and ensures it has a URL defined
+        * and that the URL is not empty.
+        */
 
+        //check for URL inside allFeeds objects
         it('should have a URL', function(){
             for(var i = 0; i < allFeeds.length; i++){
                 expect(allFeeds[i].url).not.toBe(null);
@@ -44,6 +45,7 @@ $(function() {
          * and that the name is not empty.
          */
 
+        //check for a name inside allFeeds objects
          it('should hava a name', function(){
             for(var i = 0; i < allFeeds.length; i++){
                 expect(allFeeds[i].name).not.toBe(null);
@@ -53,15 +55,18 @@ $(function() {
 
     
     /* TODO: Write a new test suite named "The menu" */
+    //test suite for the menu
     describe("The menu", function(){
         /* TODO: Write a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
-         it('should ensure the menu is hidden by default', function(){
+
+        //check classes of the body for the visibility of the menu at load
+        it('should ensure the menu is hidden by default', function(){
             expect($('body').hasClass('menu-hidden')).toBe(true)
-         });
+        });
 
          /* TODO: Write a test that ensures the menu changes
           * visibility when the menu icon is clicked. This test
@@ -69,6 +74,7 @@ $(function() {
           * clicked and does it hide when clicked again.
           */
 
+        //check proper functionality of menu expand button
         it('should expand when icon is clicked', function(){
             $(".icon-list").click();
             expect($("body").hasClass("menu-hidden")).not.toBe(true);
@@ -87,11 +93,13 @@ $(function() {
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
 
+    //test suite checking async data loading
     describe("Initial Entries", function(){
         beforeEach(function(done){
             loadFeed(0, done);
         })
 
+        //make sure we get results inside on load
         it('should have at least one entry when loadFeed is done', function(done){
             expect($(".feed .entry").length).toBeGreaterThan(0);
             done();
@@ -106,7 +114,9 @@ $(function() {
          * Remember, loadFeed() is asynchronous.
          */
 
+    //test suite checking for proper handling of switching feeds
     describe("New Feed Selection", function(){
+        //check if data changes when new feeds are selected
         it('should change content with different feeds', function(done){
             for(var i = 0; i < allFeeds.length; i++){
                 loadFeed(i);
