@@ -35,7 +35,8 @@ $(function() {
         //check for URL inside allFeeds objects
         it('should have a URL', function(){
             for(var i = 0; i < allFeeds.length; i++){
-                expect(allFeeds[i].url).not.toBe(null);
+                expect(allFeeds[i].url).toBeDefined();
+                expect(allFeeds[i].url.length > 0).toBe(true);
             };
         });
 
@@ -48,7 +49,8 @@ $(function() {
         //check for a name inside allFeeds objects
          it('should hava a name', function(){
             for(var i = 0; i < allFeeds.length; i++){
-                expect(allFeeds[i].name).not.toBe(null);
+                expect(allFeeds[i].name).toBeDefined();
+                expect(allFeeds[i].name.length > 0).toBe(true);
             };
         });
     });
@@ -77,7 +79,7 @@ $(function() {
         //check proper functionality of menu expand button
         it('should expand when icon is clicked', function(){
             $(".icon-list").click();
-            expect($("body").hasClass("menu-hidden")).not.toBe(true);
+            expect($("body").hasClass("menu-hidden")).toBe(false);
             $(".icon-list").click();
             expect($("body").hasClass("menu-hidden")).toBe(true);
         });
@@ -116,13 +118,21 @@ $(function() {
 
     //test suite checking for proper handling of switching feeds
     describe("New Feed Selection", function(){
+        var feed;
+
+        beforeEach(function(done){
+            loadFeed(1, function() {
+                feed = $('.feed').html();
+                done();
+            });
+        });
+
         //check if data changes when new feeds are selected
         it('should change content with different feeds', function(done){
-            for(var i = 0; i < allFeeds.length; i++){
-                loadFeed(i);
-                expect($(".feed .entry").length).toBeGreaterThan(0);
+            loadFeed(0, function(){
+                expect($('.feed').html()).not.toEqual(feed);
                 done();
-            };
+            });
         });
     });
 }());
